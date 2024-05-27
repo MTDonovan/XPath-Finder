@@ -75,7 +75,7 @@ chrome.devtools.panels.elements.createSidebarPane("XPath", function (sidebar) {
   function findTextByXPath(xpath) {
     chrome.devtools.inspectedWindow.eval(
       `(() => {
-          let result = document.evaluate("${xpath}", document, null, XPathResult.ORDERED_NODE_SNAPSHOT_TYPE, null);
+          let result = document.evaluate('${xpath}', document, null, XPathResult.ORDERED_NODE_SNAPSHOT_TYPE, null);
           let output = '';
           for (let i = 0; i < result.snapshotLength; i++) {
             output += result.snapshotItem(i).textContent + "\\n";
@@ -106,5 +106,5 @@ chrome.devtools.panels.elements.createSidebarPane("XPath", function (sidebar) {
   }
 
   // Initial call to update the sidebar when the extension is loaded
-  // updateSidebar();
+  updateSidebar();
 });
