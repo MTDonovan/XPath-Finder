@@ -1,0 +1,45 @@
+<html>
+  <head>
+    <title>XPath</title>
+    <script src="devtools.js"></script>
+  </head>
+  <body>
+    <button id="get-xpath">Get XPath</button>
+    <label>count: <label id="count">0</label></label>
+    <br />
+    <br />
+    <div class="input-container">
+      <textarea id="xpath-input" placeholder="Query"></textarea>
+      <textarea id="results-text" rows="5" placeholder="Results"></textarea>
+    </div>
+  </body>
+  <style>
+    * {
+      color: #d4d4ca;
+      background-color: #1e1e1e;
+      font-size: 11pt;
+    }
+
+    textarea {
+      padding: 5px;
+    }
+
+    .input-container {
+      display: grid;
+      grid-template-columns: 1;
+      grid-template-rows: 2;
+    }
+
+    #xpath-input {
+      width: 80%;
+      margin-bottom: 10px;
+    }
+
+    #results-text {
+      width: 80%;
+      height: 100%;
+      font-size: 11pt;
+      box-sizing: border-box;
+    }
+  </style>
+</html>
