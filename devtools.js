@@ -39,15 +39,52 @@ chrome.devtools.panels.elements.createSidebarPane("XPath", function (sidebar) {
     return "";
   }
 
+  function getAbsoluteElementXPath(element) {
+    if (element.nodeType === Node.COMMENT_NODE) {
+      return `//comment()[contains(., "${element.textContent.trim()}")]`;
+    }
+    if (element.id !== "") {
+      return `//*[@id="${element.id}"]`;
+    }
+    if (element.className && element.className.trim() !== "") {
+      return `/${element.tagName.toLowerCase()}[@class="${element.className.trim()}"]`;
+    }
+    if (element === document.body) {
+      return `/${element.tagName.toLowerCase()}`;
+    }
+
+    var ix = 0;
+    var siblings = element.parentNode.childNodes;
+    for (var i = 0; i < siblings.length; i++) {
+      var sibling = siblings[i];
+      if (sibling === element) {
+        return (
+          getAbsoluteElementXPath(element.parentNode) +
+          "/" +
+          element.tagName.toLowerCase() +
+          "[" +
+          (ix + 1) +
+          "]"
+        );
+      }
+      if (
+        sibling.nodeType === 1 &&
+        sibling.tagName.toLowerCase() === element.tagName.toLowerCase()
+      ) {
+        ix++;
+      }
+    }
+    return "";
+  }
+
   function updateSidebar() {
+    let absoluteCheckboxElm = window.document.getElementById('absolute-path');
     chrome.devtools.inspectedWindow.eval(
-      `(${getElementXPath.toString()})($0)`,
+      `(${absoluteCheckboxElm.checked ? getAbsoluteElementXPath.toString() : getElementXPath.toString()})($0)`,
       function (result, isException) {
-        if (isException) {
-          // sidebar.setObject({ error: "Unable to retrieve element details" });
-        } else {
-          if (document.getElementById("xpath-input")) {
-            let xpathInputElm = window.document.getElementById("xpath-input");
+        if (isException) {} else {
+          let xpathInputElm = window.document.getElementById("xpath-input");
+          if (xpathInputElm) {
             xpathInputElm.value = result;
             if (xpathInputElm) {
               findTextByXPath(result);

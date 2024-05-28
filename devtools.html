@@ -4,8 +4,11 @@
     <script src="devtools.js"></script>
   </head>
   <body>
-    <!-- <button id="get-xpath">Get XPath</button> -->
-    <label>count: <label id="count">0</label></label>
+    <input type="checkbox" id="absolute-path" name="absolute-path" />
+    <label for="absolute-path"> Absolute Path</label>
+    <br />
+    <br />
+    <label><b>Count:</b> <label id="count">0</label></label>
     <br />
     <br />
     <div class="input-container">
@@ -33,6 +36,7 @@
     #xpath-input {
       width: 100%;
       margin-bottom: 10px;
+      resize: vertical;
     }
 
     #results-text {
@@ -40,6 +44,7 @@
       height: 100%;
       font-size: 11pt;
       box-sizing: border-box;
+      resize: vertical;
     }
   </style>
 </html>
