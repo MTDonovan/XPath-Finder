@@ -67,7 +67,6 @@ chrome.devtools.panels.elements.createSidebarPane("XPath", function (sidebar) {
     xpathInput.addEventListener("input", function () {
       let xpathInputElm = window.document.getElementById("xpath-input");
       if (xpathInputElm) {
-        prompt(`Log: ${xpathInputElm.value}`);
         findTextByXPath(xpathInputElm.value);
       }
     });
